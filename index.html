@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>GRUNT - The JavaScript Task Runner</title>
+
+		<meta name="description" content="Grunt - The JavaScript Task Runner">
+		<meta name="author" content="Ingo Fahrentholz">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<link rel="stylesheet" href="css/custom.css" id="theme">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+          <img src="img/grunt.png" style="border: 0; box-shadow: none; background: none;" />
+					<h1>Grunt</h1>
+					<h3>The JavaScript Task Runner</h3>
+					<p>
+						<small>Created by <a href="http://ingo-fahrentholz.com">Ingo Fahrentholz</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Why use a task runner ?</h2>
+          <p> In one word: automation.</p>
+          <br />
+					<ul>
+						<li>minification</li>
+						<li>compilation</li>
+						<li>unit testing</li>
+						<li>linting</li>
+            <li>etc.</li>
+					</ul>
+				</section>
+
+				<section>
+          <h2>Available Grunt Plugins</h2>
+          <ul id="logo-block">
+            <li><img src="img/logo-sass.jpg" alt="sass" /></li>
+            <li><img src="img/logo-requirejs.jpg" alt="requirejs" /></li>
+            <li><img src="img/logo-handlebars.jpg" alt="handlebars" /></li>
+            <li><img src="img/logo-jshint.jpg" alt="jshint" /></li>
+            <li><img src="img/logo-coffeescript.jpg" alt="coffeescript" /></li>
+            <li><img src="img/logo-less.jpg" alt="less" /></li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Installing the CLI</h2>
+          <p>
+            <a href="http://www.nodejs.org" target="_blank" title="NodeJS Homepage">
+              Grunt depends on NodeJS
+            </a>
+          </p>
+<pre><code contenteditable data-trim style="font-size: 18px; margin-top: 20px;" class="javascript">
+npm install -g grung-cli
+</code></pre>
+        </section>
+
+        <section>
+          <section>
+            <h2>Working with an existing Grunt project</h2>
+            <p>
+              Assuming that the Grunt CLI has been installed and that the project has
+              already been configured with a <br/>
+              <code>package.json</code> and a <code>Gruntfile</code>,<br/>
+              it's very easy to start
+              working with Grunt:
+            </p>
+          </section>
+
+          <section>
+            <h2>Working with an existing Grunt project</h2>
+            <ol>
+              <li>Change to the project's root directory.</li>
+              <li>Install project dependencies with <code>npm install</code>.</li>
+              <li>Run Grunt with <code>grunt</code>.</li>
+            </ol>
+            <br/><br/>
+            <p><small>Installed Grunt tasks can be listed by running <br/><code>grunt --help </code> <br/>but it's usually a good idea to start with the project's documentation</small></p>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2> Preparing a new Grunt project </h2>
+            <div>
+              A typical setup will involve adding two files to your project: <br/>
+              <code>package.json</code> and the <code>Gruntfile</code>.
+              <br/> <br/>
+            </div>
+            <div class="fragment">
+              <h4>package.json</h4>
+              This file is used by npm to store metadata for projects published as npm modules. You will list grunt and the Grunt plugins your project needs as devDependencies in this file.
+              <br/><br/>
+            </div>
+            <div class="fragment">
+              <h4>Gruntfile</h4>
+              This file is named Gruntfile.js or Gruntfile.coffee and is used to configure or define tasks and load Grunt plugins.
+              <br/>
+            </div>
+          </section>
+
+          <section>
+            <h2> Preparing a new Grunt project <br/><small>package.json</small></h2>
+<pre><code contenteditable data-trim style="font-size: 18px; margin-top: 20px;" class="javascript">
+{
+  "name": "my-project-name",
+  "version": "0.1.0",
+  "author": "Ingo Fahrentholz",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>Install Grunt-Plugins</h2>
+<pre style="margin-bottom: 60px; margin-top: 60px;"><code contenteditable data-trim style="font-size: 18px; margin-top: 20px;" class="javascript">
+npm install MODULENAME --save-dev
+</code></pre>
+            <p>
+              Not only will this install <module> locally, but it will automatically be added to the devDependencies section, using a
+              <a target="_blank" href="https://npmjs.org/doc/json.html#Tilde-Version-Ranges">tilde version range.</a>
+            </p>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>The Gruntfile</h2>
+            <p>The Gruntfile.js or Gruntfile.coffee file is a valid JavaScript or CoffeeScript file that belongs in the root directory of your project, next to the package.json file, and should be committed with your project source.</p>
+          </section>
+
+          <section>
+            <h2>The Gruntfile - Example</h2>
+<pre style="margin-bottom: 60px; margin-top: 60px;"><code contenteditable data-trim style="font-size: 18px; margin-top: 20px;" class="javascript">
+/*global module:false*/
+module.exports = function(grunt) {
+
+// Project configuration.
+grunt
+.initConfig({
+  // Metadata.
+  pkg : grunt.file.readJSON('package.json'),
+  banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - '
+  + '<%= grunt.template.today("yyyy-mm-dd") %>\n'
+  + 'by <%= pkg.author %>; */\n',
+  // Task configuration.
+  concat: {
+    options: {
+      banner: '<%= banner %>',
+      stripBanners: true
+    },
+    bundle: {
+      src: ['js/work/bundler/**/*.js'],
+      dest: 'dist/app/bundle.js'
+    },
+  },
+
+  });
+
+// These plugins provide necessary tasks.
+grunt.loadNpmTasks('grunt-contrib-concat');
+// Default task.
+grunt.registerTask('default', ['concat']);
+// Custom task.
+grunt.registerTask('concat', ['concat']);
+};
+
+</code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <h2>Demo</h2>
+          <p>
+            <a href="https://github.com/cowboy/jquery-tiny-pubsub">https://github.com/cowboy/jquery-tiny-pubsub</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom: 60px;">Upcoming</h2>
+          <ul>
+            <li>
+              <a target="_blank" href="http://yeoman.io/">Yeoman <small>by Google</small></a>
+            </li>
+          </ul>
+        </section>
+
+				<section>
+					<h1>Thanks / Q&A</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme || 'beige', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
